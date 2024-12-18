@@ -80,13 +80,50 @@ byggfirma/
 │   │   ├── styles/      # Globala stilar
 │   │   └── utils/       # Hjälpfunktioner
 │   ├── routes/          # SvelteKit sidor
-│   └── app.html         # App-mall
-├── static/             # Statiska filer
-├── cms/                # Netlify CMS konfiguration
-│   └── config.yml      # CMS konfiguration
-├── tests/              # Testfiler
+│   ├── data/           # Innehållsfiler (markdown, etc.)
+│   │   ├── pages/      # Sidinnehåll i markdown
+│   │   ├── services/   # Tjänster i markdown
+│   │   └── projects/   # Projekt i markdown
+│   └── app.html        # App-mall
+├── static/             # ENDAST statiska filer
+│   ├── images/         # Bilder
+│   ├── fonts/          # Typsnitt
+│   ├── admin/          # Netlify CMS admin
+│   ├── favicon.png     # Favicon
+│   └── robots.txt      # SEO-filer
 └── config/             # Konfigurationsfiler
 ```
+
+### Viktigt om Filstruktur
+
+#### src/ mappen
+Innehåller filer som behöver bearbetas:
+- Markdown-filer (`.md`) för innehåll
+- Svelte-komponenter (`.svelte`)
+- TypeScript/JavaScript-filer
+- Stilmallar
+- Routes och endpoints
+
+#### static/ mappen
+ENDAST för filer som ska serveras exakt som de är:
+- Bilder (jpg, png, svg, etc.)
+- Typsnitt
+- Favicon
+- robots.txt
+- manifest.json
+- Admin-gränssnitt för CMS
+
+❌ Placera ALDRIG dessa i static/:
+- Markdown-filer
+- Källkod
+- Komponenter
+- Data som behöver bearbetas
+
+#### Viktigt att Notera
+- All innehållsdata (markdown) ska ligga i `src/data/`
+- Statiska filer som bilder ska ligga i `static/`
+- Undvik duplicering mellan `src/` och `static/`
+- CMS-konfiguration ligger i `static/admin/`
 
 ## Key Features Implementation
 
