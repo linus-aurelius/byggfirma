@@ -1,1 +1,81 @@
- 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Byggfirma Content Manager</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+      .error-log {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fee;
+        color: #c00;
+        padding: 1rem;
+        font-family: monospace;
+        white-space: pre-wrap;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nc-root"></div>
+    <div id="error-log" class="error-log"></div>
+
+    <script>
+      // Error logging function
+      function logError(error) {
+        console.error('CMS Error:', error);
+        const errorLog = document.getElementById('error-log');
+        errorLog.style.display = 'block';
+        errorLog.textContent += '\n' + JSON.stringify(error, null, 2);
+      }
+
+      // Add global error handler
+      window.onerror = function(msg, url, lineNo, columnNo, error) {
+        logError({ msg, url, lineNo, columnNo, error: error?.toString() });
+        return false;
+      };
+
+      window.addEventListener('unhandledrejection', function(event) {
+        logError({ type: 'Unhandled Promise Rejection', error: event.reason });
+      });
+    </script>
+
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <script>
+      try {
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", user => {
+            console.log("Identity initialized", { user });
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+              });
+            }
+          });
+        }
+
+        // Log CMS initialization
+        if (window.CMS) {
+          console.log("CMS object found");
+          window.CMS.registerEventListener({
+            name: 'preSave',
+            handler: () => console.log('Content about to be saved'),
+          });
+          window.CMS.registerEventListener({
+            name: 'error',
+            handler: (error) => logError(error),
+          });
+        } else {
+          logError("CMS object not found");
+        }
+      } catch (error) {
+        logError(error);
+      }
+    </script>
+  </body>
+</html> 
