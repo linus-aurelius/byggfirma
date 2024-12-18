@@ -1,5 +1,5 @@
 declare module '*.md' {
-  const attributes: {
+  const metadata: {
     heroTitle?: string;
     heroText?: string;
     aboutText?: string;
@@ -13,10 +13,7 @@ declare module '*.md' {
     location?: string;
     type?: string;
   };
-  const html: string;
-  const toc: { level: string; content: string }[];
-  
-  export { attributes as default, html, toc };
+  const default: string;
 }
 
 interface Window {
