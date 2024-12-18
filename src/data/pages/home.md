@@ -1,6 +1,6 @@
 ---
 heroTitle: Välkommen till sthock2
-heroText: Vi levererar aa byggtjänster med fokus på hållbarhet och kundnöjdhet i sthlm.
+heroText: hejhej
 aboutText: >
   Med över många års erfarenhet i byggbranschen erbjuder vi professionella
   byggtjänster för både privatpersoner och företag. Vårt team av erfarna
