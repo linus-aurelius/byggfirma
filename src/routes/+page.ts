@@ -35,12 +35,17 @@ export const load: PageLoad = async () => {
     const timestamp = new Date().getTime();
     console.log('Attempting to load home content at timestamp:', timestamp);
     
-    // Clear module cache if it exists
-    if (import.meta.hot) {
-      import.meta.hot.invalidate();
+    // Import all markdown files in the pages directory
+    const pages = import.meta.glob('../data/pages/*.md');
+    console.log('Available page files:', Object.keys(pages));
+    
+    // Load the home page specifically
+    const homeLoader = pages['../data/pages/home.md'];
+    if (!homeLoader) {
+      throw new Error('Home page markdown file not found');
     }
     
-    const homeModule = await import(`../data/pages/home.md?update=${timestamp}`);
+    const homeModule = await homeLoader();
     console.log('Raw homeModule:', homeModule);
     console.log('Loaded home content metadata:', homeModule.metadata);
     console.log('Loaded home content default:', homeModule.default);
