@@ -1,5 +1,5 @@
 ---
-heroTitle: Välkommen till till vår Byggfirma i Stockholm
+heroTitle: Välkommen till till vår Byggfirma i Bromma
 heroText: Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och
   kundnöjdhet i Stockholmsområdet.
 aboutText: >
