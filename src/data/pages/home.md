@@ -1,7 +1,7 @@
 ---
-heroTitle: Välkommen till till vår Byggfirma i Stockholm
-heroText: Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och
-  kundnöjdhet i Stockholmsområdet.
+heroTitle: Välkommen till till vår Byggfirma i Bromma
+heroText: Vi levererar aa byggtjänster med fokus på hållbarhet och kundnöjdhet i
+  Stockholmsområdet.
 aboutText: >
   Med över många års erfarenhet i byggbranschen erbjuder vi professionella
   byggtjänster för både privatpersoner och företag. Vårt team av erfarna
