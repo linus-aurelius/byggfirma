@@ -1,5 +1,5 @@
 ---
-heroTitle: Välkommen till sthock2
+heroTitle: Välkommen till sthock22
 heroText: hejhej
 aboutText: >
   Med över många års erfarenhet i byggbranschen erbjuder vi professionella
