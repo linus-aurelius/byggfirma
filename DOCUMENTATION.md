@@ -326,3 +326,93 @@ If something goes wrong:
 - Netlify CMS Documentation
 - Netlify Documentation
 - Schema.org LocalBusiness
+
+#### Important: Markdown Content Loading Configuration
+För att säkerställa att innehåll från markdown-filer laddas korrekt krävs följande konfiguration:
+
+1. **Vite Configuration** (`vite.config.ts`):
+```typescript
+export default defineConfig({
+  plugins: [sveltekit()],
+  assetsInclude: ['**/*.md'],
+  optimizeDeps: {
+    include: ['**/*.md']
+  }
+});
+```
+
+2. **Page Loading Pattern** (`+page.ts`):
+```typescript
+export const load: PageLoad = async () => {
+  try {
+    // Import all markdown files in the directory
+    const pages = import.meta.glob('../data/pages/*.md');
+    console.log('Available page files:', Object.keys(pages));
+    
+    // Load specific page
+    const pageLoader = pages['../data/pages/your-page.md'];
+    if (!pageLoader) {
+      throw new Error('Page markdown file not found');
+    }
+    
+    const pageModule = await pageLoader();
+    console.log('Raw pageModule:', pageModule);
+    
+    return {
+      pageData: pageModule.metadata || pageModule.default?.metadata
+    };
+  } catch (error) {
+    console.error('Error loading content:', error);
+    return {
+      pageData: {
+        // Define your fallback structure here
+        title: 'Default Title',
+        content: 'Default Content'
+      }
+    };
+  }
+};
+```
+
+3. **Component Usage Pattern** (`+page.svelte`):
+```typescript
+<script>
+  export let data;
+  
+  // Always provide empty fallback values to prevent undefined errors
+  $: pageContent = data?.pageData || {
+    title: '',
+    content: ''
+  };
+  
+  // Log data changes to help with debugging
+  $: {
+    console.log('Data changed:', data);
+    console.log('pageContent value:', pageContent);
+  }
+</script>
+
+<h1>{pageContent.title || 'Default Title'}</h1>
+<div>{@html pageContent.content || 'Default Content'}</div>
+```
+
+Denna konfiguration säkerställer:
+- Korrekt importering av markdown-filer
+- Korrekt extrahering av metadata
+- Fallback-innehåll om laddningen misslyckas
+- Fungerar för alla sidor som använder markdown-innehåll
+- Förhindrar undefined-fel genom tomma fallback-värden
+
+När du lägger till nya sidor:
+1. Placera markdown-filer i `src/data/pages/`
+2. Använd samma laddningsmönster i sidans `+page.ts`
+3. Kom åt data i komponenten med det reaktiva mönstret ovan
+4. Använd ALLTID tomma strängar som fallback-värden för att undvika undefined-fel
+5. Lägg till console.log för att underlätta felsökning
+6. Testa alltid att innehållet uppdateras korrekt via CMS
+
+Viktigt att notera:
+- Markdown-filer måste ha korrekt frontmatter-format
+- Använd alltid tomma strängar som fallback, inte null eller undefined
+- Kontrollera webbläsarens konsol för felmeddelanden
+- Rensa webbläsarens cache om ändringar inte syns
