@@ -41,7 +41,9 @@ export const load: PageLoad = async () => {
     }
     
     const homeModule = await import(`../data/pages/home.md?update=${timestamp}`);
-    console.log('Loaded home content:', homeModule.metadata);
+    console.log('Raw homeModule:', homeModule);
+    console.log('Loaded home content metadata:', homeModule.metadata);
+    console.log('Loaded home content default:', homeModule.default);
 
     const servicesFiles = import.meta.glob<Service>('../data/services/*.md');
     const projectsFiles = import.meta.glob<Project>('../data/projects/*.md');
@@ -63,15 +65,20 @@ export const load: PageLoad = async () => {
     );
 
     const data = {
-      home: homeModule.metadata,
+      home: homeModule.metadata || homeModule.default?.metadata,
       services,
       projects
     };
     
-    console.log('Returning data:', data);
+    console.log('Final data being returned:', data);
     return data;
   } catch (error) {
     console.error('Error loading content:', error);
+    console.error('Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
     return {
       home: {
         heroTitle: 'Välkommen till Byggfirma Stockholm',

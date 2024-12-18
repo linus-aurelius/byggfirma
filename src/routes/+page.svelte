@@ -4,6 +4,13 @@
 
   // Get the data from our loader
   export let data;
+  console.log('Raw data received in component:', data);
+  
+  $: {
+    console.log('Data changed:', data);
+    console.log('data?.home value:', data?.home);
+  }
+  
   $: home = data?.home || {
     heroTitle: 'Välkommen till Byggfirma Stockholm',
     heroText: 'Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och kundnöjdhet i Stockholmsområdet.',
@@ -11,8 +18,7 @@
     contactInfo: ''
   };
 
-  console.log('Page data:', data);
-  console.log('Home content:', home);
+  console.log('Final home object being used:', home);
 
   // Add Netlify Identity Widget redirect
   onMount(() => {
