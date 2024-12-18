@@ -4,7 +4,12 @@
 
   // Get the data from our loader
   export let data;
-  const { home } = data;
+  const home = data?.home || {
+    heroTitle: 'Välkommen till Byggfirma Stockholm',
+    heroText: 'Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och kundnöjdhet i Stockholmsområdet.',
+    aboutText: '',
+    contactInfo: ''
+  };
 
   // Add Netlify Identity Widget redirect
   onMount(() => {
@@ -47,7 +52,12 @@
       <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-4">Kontakta Oss</h2>
         <div class="space-y-2 text-gray-700">
-          {@html home.contactInfo}
+          {@html home.contactInfo || `
+            <p>📍 Stockholm</p>
+            <p>📞 08-XXX XX XX</p>
+            <p>✉️ kontakt@byggfirma-stockholm.se</p>
+            <p>🕒 Mån-Fre: 07:00-16:00</p>
+          `}
         </div>
       </div>
     </div>
@@ -57,7 +67,7 @@
     <div class="bg-white p-6 rounded-lg shadow-md">
       <h2 class="text-2xl font-semibold mb-4">Om Oss</h2>
       <div class="prose">
-        {@html home.aboutText}
+        {@html home.aboutText || 'Vi är en professionell byggfirma med fokus på kvalitet och kundnöjdhet.'}
       </div>
     </div>
   </section>
