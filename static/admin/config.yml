@@ -1,1 +1,41 @@
- 
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/uploads" # Media files will be stored in the repo under static/uploads
+public_folder: "/uploads" # The src attribute for uploaded media will begin with /uploads
+
+collections:
+  - name: "projects"
+    label: "Byggprojekt"
+    folder: "src/data/projects"
+    create: true
+    fields:
+      - { label: "Projekttitel", name: "title", widget: "string" }
+      - { label: "Publiceringsdatum", name: "date", widget: "datetime" }
+      - { label: "Beskrivning", name: "description", widget: "markdown" }
+      - { label: "Projektbilder", name: "images", widget: "list", field: { label: "Bild", name: "image", widget: "image" } }
+      - { label: "Plats", name: "location", widget: "string" }
+      - { label: "Projekttyp", name: "type", widget: "select", options: ["Renovering", "Nybyggnation", "Tillbyggnad", "Ombyggnad"] }
+
+  - name: "services"
+    label: "Tjänster"
+    folder: "src/data/services"
+    create: true
+    fields:
+      - { label: "Tjänsttitel", name: "title", widget: "string" }
+      - { label: "Beskrivning", name: "description", widget: "markdown" }
+      - { label: "Ikon", name: "icon", widget: "string", hint: "FontAwesome icon namn" }
+      - { label: "Ordning", name: "order", widget: "number" }
+
+  - name: "pages"
+    label: "Sidor"
+    files:
+      - name: "home"
+        label: "Hemsida"
+        file: "src/data/pages/home.md"
+        fields:
+          - { label: "Hero Titel", name: "heroTitle", widget: "string" }
+          - { label: "Hero Text", name: "heroText", widget: "text" }
+          - { label: "Om Oss Text", name: "aboutText", widget: "markdown" }
+          - { label: "Kontaktinformation", name: "contactInfo", widget: "markdown" } 
