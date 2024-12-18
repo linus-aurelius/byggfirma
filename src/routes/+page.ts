@@ -31,7 +31,18 @@ interface Project {
 
 export const load: PageLoad = async () => {
   try {
-    const homeModule = await import('../data/pages/home.md');
+    // Add a cache-busting timestamp to force reload of content
+    const timestamp = new Date().getTime();
+    console.log('Attempting to load home content at timestamp:', timestamp);
+    
+    // Clear module cache if it exists
+    if (import.meta.hot) {
+      import.meta.hot.invalidate();
+    }
+    
+    const homeModule = await import(`../data/pages/home.md?update=${timestamp}`);
+    console.log('Loaded home content:', homeModule.metadata);
+
     const servicesFiles = import.meta.glob<Service>('../data/services/*.md');
     const projectsFiles = import.meta.glob<Project>('../data/projects/*.md');
 
@@ -51,11 +62,14 @@ export const load: PageLoad = async () => {
       })
     );
 
-    return {
+    const data = {
       home: homeModule.metadata,
       services,
       projects
     };
+    
+    console.log('Returning data:', data);
+    return data;
   } catch (error) {
     console.error('Error loading content:', error);
     return {

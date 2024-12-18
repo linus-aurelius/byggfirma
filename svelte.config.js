@@ -12,7 +12,17 @@ const config = {
 		})
 	],
 	kit: {
-		adapter: adapter()
+		adapter: adapter({
+			edge: false,
+			split: false
+		}),
+		files: {
+			assets: 'static',
+			lib: 'src/lib',
+			routes: 'src/routes',
+			serviceWorker: 'src/service-worker',
+			appTemplate: 'src/app.html'
+		}
 	}
 };
 

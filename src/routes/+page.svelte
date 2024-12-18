@@ -4,15 +4,19 @@
 
   // Get the data from our loader
   export let data;
-  const home = data?.home || {
+  $: home = data?.home || {
     heroTitle: 'Välkommen till Byggfirma Stockholm',
     heroText: 'Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och kundnöjdhet i Stockholmsområdet.',
     aboutText: '',
     contactInfo: ''
   };
 
+  console.log('Page data:', data);
+  console.log('Home content:', home);
+
   // Add Netlify Identity Widget redirect
   onMount(() => {
+    console.log('Component mounted, current home data:', home);
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
