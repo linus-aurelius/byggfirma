@@ -25,28 +25,28 @@ interface Project {
 
 export const load: PageLoad = async () => {
   try {
-    const homeContent = await import('../data/pages/home.md');
+    const homeModule = await import('../data/pages/home.md');
     const servicesFiles = import.meta.glob<{ default: Service }>('../data/services/*.md');
     const projectsFiles = import.meta.glob<{ default: Project }>('../data/projects/*.md');
 
     // Load services
     const services = await Promise.all(
       Object.values(servicesFiles).map(async (loader) => {
-        const service = await loader();
-        return service.default;
+        const { default: attributes } = await loader();
+        return attributes;
       })
     );
 
     // Load projects
     const projects = await Promise.all(
       Object.values(projectsFiles).map(async (loader) => {
-        const project = await loader();
-        return project.default;
+        const { default: attributes } = await loader();
+        return attributes;
       })
     );
 
     return {
-      home: homeContent.default as HomeContent,
+      home: homeModule.default as HomeContent,
       services,
       projects
     };
@@ -63,4 +63,4 @@ export const load: PageLoad = async () => {
       projects: []
     };
   }
-}; 
+};

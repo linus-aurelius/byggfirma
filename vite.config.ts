@@ -1,10 +1,13 @@
-import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+import { plugin as markdown } from 'vite-plugin-markdown';
 
 export default defineConfig({
-	plugins: [sveltekit()],
-
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
+	plugins: [
+		markdown({ mode: ['html', 'toc'] }),
+		sveltekit()
+	],
+	optimizeDeps: {
+		include: ['highlight.js', 'markdown-it']
 	}
 });
