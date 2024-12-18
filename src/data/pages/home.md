@@ -1,5 +1,5 @@
 ---
-heroTitle: Välkommen till sthlm
+heroTitle: Välkommen till sthlmm
 heroText: Vi levererar aa byggtjänster med fokus på hållbarhet och kundnöjdhet i
   Stockholmsområdet.
 aboutText: >
