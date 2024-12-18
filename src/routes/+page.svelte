@@ -33,13 +33,8 @@
 
 <main class="container mx-auto px-4 py-8">
   <section class="hero bg-gray-100 rounded-lg p-8 mb-12">
-<<<<<<< HEAD
     <h1 class="text-4xl font-bold mb-4">{home.heroTitle}</h1>
     <p class="text-xl text-gray-700">{home.heroText}</p>
-=======
-    <h1 class="text-4xl font-bold mb-4">Välkommen till Byggfirma i Stockholm</h1>
-    <p class="text-xl text-gray-700">Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och kundnöjdhet i Stockholmsområdet.</p>
->>>>>>> b9f35a883dd626262b76ab9d68b0aa88f2116e85
   </section>
   
   <section class="mb-12">
