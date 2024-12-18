@@ -10,16 +10,6 @@
 [functions]
   directory = ".netlify/functions"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 [build.environment]
   NODE_VERSION = "20"
-  NETLIFY_USE_YARN = "false" 
+  NETLIFY_USE_YARN = "false"
