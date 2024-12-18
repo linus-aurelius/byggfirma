@@ -12,7 +12,7 @@
   }
   
   $: home = data?.home || {
-    heroTitle: 'Välkommen till Byggfirma Stockholm',
+    heroTitle: '',
     heroText: 'Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och kundnöjdhet i Stockholmsområdet.',
     aboutText: '',
     contactInfo: ''
