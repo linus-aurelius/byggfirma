@@ -109,26 +109,190 @@ collections:
       - { label: "Projektbilder", name: "images", widget: "image" }
 ```
 
-## Development Workflow
+## Development Workflow Guide
 
-### Local Development
+### Initial Setup
 
+1. Start Local Development Server
 ```bash
-# Frontend
-npm run dev
-
-# Netlify CMS local testing
-npm install netlify-cms-app
+# Start development server
 npm run dev
 ```
+Your site will be available at `localhost:5173`
 
-### Production Deployment
+### Daily Development Process
 
+1. **Before Starting New Changes**
 ```bash
-# Push code to GitHub
+# Make sure you're on staging branch
+git checkout staging
+
+# Get latest changes
+git pull origin staging
+
+# Create new feature branch
+git checkout -b feature/what-you-are-building
+```
+
+2. **During Development**
+- Make your changes
+- Test locally at `localhost:5173`
+- Test on different devices and browsers
+
+3. **Saving Your Changes**
+```bash
+# See what files you changed
+git status
+
+# Add all your changes
+git add .
+
+# Save your changes with a description
+git commit -m "Describe what you changed"
+```
+
+4. **Code Quality Checks**
+```bash
+# Check code formatting and find potential errors
+npm run lint
+
+# Run all tests
+npm run test
+
+# If any issues are found:
+# 1. Fix the reported problems
+# 2. Run the commands again
+# 3. Only proceed when all checks pass
+```
+
+5. **Testing on Staging**
+```bash
+# Switch to staging branch
+git checkout staging
+
+# Bring in your changes
+git merge feature/what-you-are-building
+
+# Push to staging environment
+git push origin staging
+```
+- Test everything on the staging site
+- Make sure all changes work as expected
+
+6. **Publishing to Live Site**
+```bash
+# Switch to main branch
+git checkout main
+
+# Bring in staging changes
+git merge staging
+
+# Push to live site
 git push origin main
-# Netlify will automatically deploy the changes
 ```
+
+### Branch Structure
+```
+main (live site)
+├── staging (test site)
+└── feature branches
+    ├── feature/new-homepage
+    ├── feature/contact-form
+    └── feature/project-gallery
+```
+
+### Important Rules
+1. Never make changes directly on `main` branch
+2. Always test changes on `staging` first
+3. Create new feature branch for each change
+4. Use descriptive names for feature branches
+5. Test thoroughly before pushing to live site
+
+### Common Commands Reference
+
+**Navigation**
+```bash
+# See what branch you're on
+git branch
+
+# Switch to a branch
+git checkout branch-name
+
+# Create and switch to new branch
+git checkout -b feature/new-branch
+```
+
+**Saving Changes**
+```bash
+# See what you changed
+git status
+
+# Save changes
+git add .
+git commit -m "Description of changes"
+```
+
+**Updating & Publishing**
+```bash
+# Get latest changes
+git pull origin branch-name
+
+# Push your changes
+git push origin branch-name
+```
+
+### Troubleshooting
+
+If something goes wrong:
+1. Don't panic
+2. Make note of any error messages
+3. Don't make more changes
+4. Contact technical support
+
+### Environment Variables
+- Development variables are in `.env`
+- Example variables are in `.env.example`
+- Never commit real credentials to Git
+- Update both files when adding new variables
+
+### Code Quality Tools
+
+**What These Tools Do:**
+
+1. `npm run lint`
+   - Checks code formatting
+   - Finds potential errors
+   - Ensures consistent code style
+   - Helps prevent common mistakes
+   - Must pass before pushing to staging
+
+2. `npm run test`
+   - Runs automated tests
+   - Checks if features work correctly
+   - Verifies site functionality
+   - Must pass before pushing to staging
+
+**When to Run These Commands:**
+- Before pushing any changes
+- After making significant changes
+- When something stops working
+- Before merging to staging
+
+**If You Get Errors:**
+1. Read the error message carefully
+2. Look for:
+   - Line numbers
+   - File names
+   - Error descriptions
+3. Fix one error at a time
+4. Run commands again until all pass
+
+**Common Issues:**
+- Missing semicolons
+- Incorrect indentation
+- Unused variables
+- Failed tests
+- Formatting issues
 
 ## Best Practices
 
