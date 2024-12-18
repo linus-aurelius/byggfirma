@@ -24,7 +24,7 @@
 
 <main class="container mx-auto px-4 py-8">
   <section class="hero bg-gray-100 rounded-lg p-8 mb-12">
-    <h1 class="text-4xl font-bold mb-4">Välkommen till Byggfirma Stockholm</h1>
+    <h1 class="text-4xl font-bold mb-4">Välkommen till Byggfirma i Stockholm</h1>
     <p class="text-xl text-gray-700">Vi levererar högkvalitativa byggtjänster med fokus på hållbarhet och kundnöjdhet i Stockholmsområdet.</p>
   </section>
   
